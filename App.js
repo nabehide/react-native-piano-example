@@ -2,7 +2,6 @@ import React from 'react';
 import {
   StyleSheet,
   Text,
-  TouchableOpacity,
   View,
 } from 'react-native';
 
@@ -12,6 +11,7 @@ export default class App extends React.Component {
   constructor( props ){
     super( props );
 
+    // backgroundColor
     this.state = {
       colorC : "white",
       colorCs: "black",
@@ -27,6 +27,7 @@ export default class App extends React.Component {
       colorB : "white",
     }
 
+    // preload sounds
     this.sound = {};
     const soundList = [ "C", "Cs", "D", "Ds", "E", "F", "Fs", "G", "Gs", "A", "As", "B" ]
     soundList.forEach(note => {
@@ -38,6 +39,7 @@ export default class App extends React.Component {
     });
   }
   stroke ( note ) {
+    // change backgroundColor
     switch ( note ) {
       case "C":
         this.setState({ colorC: "rgba(1, 1, 1, 0.1)" })
@@ -76,6 +78,8 @@ export default class App extends React.Component {
         this.setState({ colorB: "rgba(1, 1, 1, 0.1)" })
         break;
     }
+
+    // play sound
     setTimeout( () => {
       this.sound[note].play(success => {
         if ( success ) {
@@ -87,6 +91,8 @@ export default class App extends React.Component {
     }, 1);
   }
   stop( note ) {
+
+    // change backgroundColor
     switch ( note ) {
       case "C":
         this.setState( { colorC: "white" } )
@@ -125,7 +131,10 @@ export default class App extends React.Component {
         this.setState( { colorB: "white" } )
         break;
     }
+
+    // stop sound
     setTimeout( () => {
+      // gradually decrease the volume
       for (let i=0; i<2000; i++) {
         this.sound[note].setVolume( 1.0-i/2000. );
       }
